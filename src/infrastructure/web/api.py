@@ -6,6 +6,11 @@ router = APIRouter()
 use_case: SearchDirectorUseCase = None
 kafka_use_case: SearchDirectorUseCase = None
 
+@router.get("/health")
+async def health_check():
+    """Health check endpoint для Docker."""
+    return {"status": "ok", "service": "data-extraction-service"}
+
 @router.get("/api/v1/search")
 async def search_directors(search_string: str):
     if not use_case:
