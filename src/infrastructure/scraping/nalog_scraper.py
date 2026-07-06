@@ -131,12 +131,14 @@ class NalogScraperAdapter(ScraperPort):
                 raise NalogApiError(f"HTTP {resp.status}: {response_text[:200]}")
             
             data = await resp.json(content_type=None)
-            await self._check_captcha(data)
-            
-            print(f"📦 Poll response keys: {data.keys() if data else 'None'}")
+            print(f"📦 Poll response: {data}")
             
             if not data:
                 raise NalogApiError("Result not ready yet")
+            
+            await self._check_captcha(data)
+            
+            print(f"📦 Poll response keys: {data.keys() if data else 'None'}")
             
             return data
 
